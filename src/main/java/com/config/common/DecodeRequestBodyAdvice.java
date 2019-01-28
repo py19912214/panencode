@@ -1,8 +1,9 @@
-package login.common;
+package com.config.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.utils.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.MethodParameter;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
 import java.io.IOException;
@@ -21,13 +21,14 @@ import java.util.*;
 
 @Slf4j
 @Component
-@ControllerAdvice(basePackages = "login.controller")
+@ControllerAdvice(basePackages = "com.login.controller")
 public class DecodeRequestBodyAdvice implements RequestBodyAdvice {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return methodParameter.getMethodAnnotation(RequestDecode.class) != null
-                && methodParameter.getParameterAnnotation(RequestBody.class) != null;
+        return methodParameter.getMethodAnnotation(RequestDecode.class) != null;
+    // 如果是使用方式3 的话 这个地方一定要改为false 不然 不会走下面的代码 因为都是用于生成对象的 值会执行一个地方
+//        return false;
     }
 
     @Override
@@ -56,6 +57,7 @@ public class DecodeRequestBodyAdvice implements RequestBodyAdvice {
         }catch (Exception e){
             return body;
         }
+        //方式三  忽略这些 走过滤器
     }
 
     class MyHttpInputMessage implements HttpInputMessage {

@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *******************************************************************************/
-package login.common;
+package com.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
-import login.decodeAni.DecodeParamsIntrospector;
+import com.config.decodeAni.ParamsIntrospector;
+import com.login.req.UserReq;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,7 +50,7 @@ public class JsonMapper implements InitializingBean {
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		// 空串转换成null
 		mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-		mapper.setAnnotationIntrospector(new DecodeParamsIntrospector());
+		mapper.setAnnotationIntrospector(new ParamsIntrospector());
 
 	}
 
@@ -180,5 +181,12 @@ public class JsonMapper implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		mapper.setSerializationInclusion(Include.NON_NULL);
+	}
+
+	public static void main(String[] args) {
+		JsonMapper jsonMapper=new JsonMapper();
+		String json="{\"name\":\"阿萨德阿斯\",\"firstName\":\"小月月\"}";
+		UserReq paramEncodeReq=jsonMapper.fromJson(json,UserReq.class);
+		System.out.println("转换后的数据:"+paramEncodeReq);
 	}
 }

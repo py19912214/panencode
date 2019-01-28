@@ -1,4 +1,4 @@
-package login.decodeAni;
+package com.config.decodeAni;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -14,7 +14,7 @@ import java.io.IOException;
  * @Date: 2018/6/13 18:16
  * ------------------------------------------------------
  */
-public class DecodeParamsFormater extends JsonSerializer<String> {
+public class ParamsSeri extends JsonSerializer<String> {
     @Override
     public void serialize(String value, JsonGenerator jgen,
                           SerializerProvider provider)

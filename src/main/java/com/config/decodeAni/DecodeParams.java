@@ -1,4 +1,4 @@
-package login.decodeAni;
+package com.config.decodeAni;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotation;
 
@@ -20,4 +20,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotation
 public @interface DecodeParams {
+    DecodeParamType type();
 }
