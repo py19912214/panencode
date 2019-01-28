@@ -19,9 +19,8 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public String login(@RequestDecode UserReq userReq) {
-        System.out.println(userReq);
-        return "潘月";
+    public UserReq login(@RequestDecode UserReq userReq) {
+        return userReq;
     }
 
     /**
@@ -31,8 +30,7 @@ public class LoginController {
      */
     @PostMapping("/demo")
     @RequestDecode
-    public String demo(@RequestBody UserReq userReq) {
-        System.out.println(userReq);
-        return "潘月";
+    public UserReq demo(@RequestBody UserReq userReq) {
+        return userReq;
     }
 }
