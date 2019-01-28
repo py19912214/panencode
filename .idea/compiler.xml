@@ -6,8 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="pan.encode" />
         <module name="panencode" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pan.encode" target="1.6" />
+    </bytecodeTargetLevel>
   </component>
 </project>
