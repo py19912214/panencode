@@ -19,6 +19,6 @@ import java.lang.annotation.Target;
         ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotation
-public @interface DecodeParams {
+public @interface DecodeParam {
     DecodeParamType type();
 }

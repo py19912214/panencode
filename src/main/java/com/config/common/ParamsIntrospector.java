@@ -1,5 +1,6 @@
-package com.config.decodeAni;
+package com.config.common;
 
+import com.config.decodeAni.DecodeParam;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
@@ -21,7 +22,7 @@ public class ParamsIntrospector extends JacksonAnnotationIntrospector {
     @Override
     public Object findSerializer(Annotated annotated) {
         if(annotated instanceof AnnotatedMethod) {
-            DecodeParams formatter = annotated.getAnnotation(DecodeParams.class);
+            DecodeParam formatter = annotated.getAnnotation(DecodeParam.class);
             if(formatter != null) {
                 return new ParamsSeri();
             }
@@ -37,7 +38,7 @@ public class ParamsIntrospector extends JacksonAnnotationIntrospector {
     @Override
     public Object findDeserializationConverter(Annotated annotated) {
         if(annotated instanceof AnnotatedMethod) {
-            DecodeParams formatter = annotated.getAnnotation(DecodeParams.class);
+            DecodeParam formatter = annotated.getAnnotation(DecodeParam.class);
             if(formatter != null) {
                 return new ParamsDeserializer();
             }

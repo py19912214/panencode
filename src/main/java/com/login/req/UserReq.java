@@ -4,7 +4,7 @@
 package com.login.req;
 
 import com.config.decodeAni.DecodeParamType;
-import com.config.decodeAni.DecodeParams;
+import com.config.decodeAni.DecodeParam;
 
 public class UserReq {
     public String getName() {
@@ -14,7 +14,7 @@ public class UserReq {
     public void setName(String name) {
         this.name = name;
     }
-    @DecodeParams(type = DecodeParamType.BANK_CARD)
+    @DecodeParam(type = DecodeParamType.BANK_CARD)
     private String name;
 
     public String getFirstName() {

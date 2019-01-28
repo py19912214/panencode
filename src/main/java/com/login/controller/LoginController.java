@@ -1,6 +1,6 @@
 package com.login.controller;
 
-import com.config.common.RequestDecode;
+import com.config.decodeAni.DecodeParamEnable;
 import com.login.req.UserReq;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public UserReq login(@RequestDecode UserReq userReq) {
+    public UserReq login(@DecodeParamEnable UserReq userReq) {
         return userReq;
     }
 
@@ -29,7 +29,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/demo")
-    @RequestDecode
+    @DecodeParamEnable
     public UserReq demo(@RequestBody UserReq userReq) {
         return userReq;
     }

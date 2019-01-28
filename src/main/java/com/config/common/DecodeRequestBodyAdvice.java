@@ -3,6 +3,7 @@ package com.config.common;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.config.decodeAni.DecodeParamEnable;
 import com.utils.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -26,7 +27,7 @@ public class DecodeRequestBodyAdvice implements RequestBodyAdvice {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return methodParameter.getMethodAnnotation(RequestDecode.class) != null;
+        return methodParameter.getMethodAnnotation(DecodeParamEnable.class) != null;
     // 如果是使用方式3 的话 这个地方一定要改为false 不然 不会走下面的代码 因为都是用于生成对象的 值会执行一个地方
 //        return false;
     }

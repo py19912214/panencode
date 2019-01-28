@@ -1,4 +1,4 @@
-package com.config.decodeAni;
+package com.config.common;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 

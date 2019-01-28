@@ -7,9 +7,8 @@ package com.config;
  * @Date 2019/1/25
  **/
 
-import com.config.common.RequestDecode;
+import com.config.decodeAni.DecodeParamEnable;
 import com.utils.JsonMapper;
-import com.config.decodeAni.DecodeParams;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -22,7 +21,7 @@ import java.io.BufferedReader;
 public class ParamDecodeResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        if (parameter.hasParameterAnnotation(RequestDecode.class)) {
+        if (parameter.hasParameterAnnotation(DecodeParamEnable.class)) {
             return true;
         }
         return false;
