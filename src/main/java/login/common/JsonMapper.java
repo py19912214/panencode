@@ -28,7 +28,6 @@ import java.util.Map;
  *
  * 封装不同的输出风格, 使用不同的builder函数创建实例.
  *
- * @author calvin
  */
 public class JsonMapper implements InitializingBean {
 
@@ -178,12 +177,6 @@ public class JsonMapper implements InitializingBean {
 		return mapper;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		mapper.setSerializationInclusion(Include.NON_NULL);
