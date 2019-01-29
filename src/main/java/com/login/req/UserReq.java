@@ -3,28 +3,13 @@
 
 package com.login.req;
 
-import com.config.decodeAni.DecodeParamType;
 import com.config.decodeAni.DecodeParam;
+import lombok.Data;
 
+@Data
 public class UserReq {
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    @DecodeParam(type = DecodeParamType.BANK_CARD)
+    @DecodeParam
     private String name;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     private String firstName;
     @Override
     public String toString() {

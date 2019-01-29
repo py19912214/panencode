@@ -9,7 +9,9 @@ package com.config;
 
 import com.config.decodeAni.DecodeParamEnable;
 import com.utils.JsonMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -18,7 +20,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 
+@Service
 public class ParamDecodeResolver implements HandlerMethodArgumentResolver {
+    @Autowired
+    private JsonMapper jsonMapper;
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         if (parameter.hasParameterAnnotation(DecodeParamEnable.class)) {
@@ -38,7 +43,6 @@ public class ParamDecodeResolver implements HandlerMethodArgumentResolver {
         while((rd = reader.read(buf)) != -1){
             sb.append(buf, 0, rd);
         }
-        JsonMapper jsonMapper=new JsonMapper();
         return jsonMapper.fromJson(sb.toString(),parameter.getParameterType());
     }
 

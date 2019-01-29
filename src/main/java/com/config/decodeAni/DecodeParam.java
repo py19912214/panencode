@@ -20,5 +20,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotation
 public @interface DecodeParam {
-    DecodeParamType type();
+    //以后如果有多种加密方式的时候 使用
+    DecodeParamType type() default DecodeParamType.DEFAULT;
 }

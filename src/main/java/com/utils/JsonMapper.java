@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.utils;
 
+import com.config.common.ParamsIntrospector;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -12,13 +13,12 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-
-import com.config.common.ParamsIntrospector;
-import com.login.req.UserReq;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -29,12 +29,16 @@ import java.util.Map;
  *
  * 封装不同的输出风格, 使用不同的builder函数创建实例.
  *
+ * @author calvin
  */
+@Component
 public class JsonMapper implements InitializingBean {
 
 	private static Log logger = LogFactory.getLog(JsonMapper.class);
 
 	private ObjectMapper mapper;
+	@Autowired
+	private ParamsIntrospector paramsIntrospector;
 
 	public JsonMapper() {
 		this(null);
@@ -49,9 +53,9 @@ public class JsonMapper implements InitializingBean {
 		// 设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		// 空串转换成null
-		mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-		mapper.setAnnotationIntrospector(new ParamsIntrospector());
-
+		mapper.configure(
+				DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+		mapper.setSerializationInclusion(Include.NON_NULL);
 	}
 
 	/**
@@ -134,7 +138,7 @@ public class JsonMapper implements InitializingBean {
 	 * 构造Map类型.
 	 */
 	public JavaType contructMapType(Class<? extends Map> mapClass,
-			Class<?> keyClass, Class<?> valueClass) {
+                                    Class<?> keyClass, Class<?> valueClass) {
 		return mapper.getTypeFactory().constructMapType(mapClass, keyClass,
 				valueClass);
 	}
@@ -178,15 +182,15 @@ public class JsonMapper implements InitializingBean {
 		return mapper;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		mapper.setSerializationInclusion(Include.NON_NULL);
-	}
+		mapper.setAnnotationIntrospector(paramsIntrospector);
 
-	public static void main(String[] args) {
-		JsonMapper jsonMapper=new JsonMapper();
-		String json="{\"name\":\"阿萨德阿斯\",\"firstName\":\"小月月\"}";
-		UserReq paramEncodeReq=jsonMapper.fromJson(json,UserReq.class);
-		System.out.println("转换后的数据:"+paramEncodeReq);
 	}
 }

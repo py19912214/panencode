@@ -4,6 +4,9 @@ import com.config.decodeAni.DecodeParam;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @Auther: yuepan
@@ -13,7 +16,12 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
  * @Date: 2018/6/13 18:13
  * ------------------------------------------------------
  */
+@Component
 public class ParamsIntrospector extends JacksonAnnotationIntrospector {
+    @Resource
+    private ParamsSerializer paramsSerializer;
+    @Resource
+    private ParamsDeserializer paramsDeserializer;
     /**
      * 序列化为字符串的时候 需要调用
      * @param annotated
@@ -24,7 +32,7 @@ public class ParamsIntrospector extends JacksonAnnotationIntrospector {
         if(annotated instanceof AnnotatedMethod) {
             DecodeParam formatter = annotated.getAnnotation(DecodeParam.class);
             if(formatter != null) {
-                return new ParamsSeri();
+                return paramsSerializer;
             }
         }
         return super.findSerializer(annotated);
@@ -40,7 +48,7 @@ public class ParamsIntrospector extends JacksonAnnotationIntrospector {
         if(annotated instanceof AnnotatedMethod) {
             DecodeParam formatter = annotated.getAnnotation(DecodeParam.class);
             if(formatter != null) {
-                return new ParamsDeserializer();
+                return paramsDeserializer;
             }
         }
         return super.findDeserializationConverter(annotated);
