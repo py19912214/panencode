@@ -4,6 +4,8 @@ import com.config.decodeAni.DecodeParamEnable;
 import com.login.req.UserReq;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * TODO
  *
@@ -30,7 +32,7 @@ public class LoginController {
      */
     @PostMapping("/demo")
     @DecodeParamEnable
-    public UserReq demo(@RequestBody UserReq userReq) {
+    public UserReq demo(@RequestBody @Valid UserReq userReq) {
         return userReq;
     }
 }

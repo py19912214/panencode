@@ -182,12 +182,6 @@ public class JsonMapper implements InitializingBean {
 		return mapper;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		mapper.setAnnotationIntrospector(paramsIntrospector);

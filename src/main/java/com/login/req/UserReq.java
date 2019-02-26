@@ -6,11 +6,15 @@ package com.login.req;
 import com.config.decodeAni.DecodeParam;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 public class UserReq {
     @DecodeParam
     private String name;
     private String firstName;
+    @NotNull
+    private String age;
     @Override
     public String toString() {
         return this.name+":"+this.firstName;
